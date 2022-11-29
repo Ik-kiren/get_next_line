@@ -6,14 +6,14 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:04:31 by cdupuis           #+#    #+#             */
-/*   Updated: 2022/11/29 17:48:00 by cdupuis          ###   ########.fr       */
+/*   Updated: 2022/11/29 18:16:00 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <fcntl.h>
 
-char	*read_line(int fd, char line)
+char	*read_line(int fd, char *line)
 {
 	char	*buff;
 	int		readed;
@@ -34,14 +34,22 @@ char	*read_line(int fd, char line)
 	return (line);
 }
 
-char	*get_line(char *str, int size)
+char	*get_line(char *str)
 {
 	char	*tmp;
 	int		i;
+	int		size;
 
 	i = 0;
-	tmp = malloc(sizeof(char) * size + 2);
-	while (i <= size + 1)
+	size = 0;
+	while (str[i] != '\n')
+	{
+		i++;
+	}
+	size = i;
+	i = 0;
+	tmp = malloc(sizeof(char) * size + 1);
+	while (i <= size)
 	{
 		tmp[i] = str[i];
 		i++;
@@ -58,7 +66,7 @@ char	*get_next_line(int fd)
 	{
 		read_line(fd, line);
 	}
-	return (get_line(line, ft_strchr(line, '\n')));
+	return (get_line(line));
 }
 
 int main ()
@@ -68,5 +76,5 @@ int main ()
 
 	if (!fd)
 		return 0;
-	printf("(%s)" ,read_line(fd));
+	printf("(%s)" ,get_next_line(fd));
 }
