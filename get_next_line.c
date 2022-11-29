@@ -6,21 +6,21 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:04:31 by cdupuis           #+#    #+#             */
-/*   Updated: 2022/11/29 17:18:18 by cdupuis          ###   ########.fr       */
+/*   Updated: 2022/11/29 17:48:00 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <fcntl.h>
 
-char	*read_line(int fd, char *line)
+char	*read_line(int fd, char line)
 {
 	char	*buff;
 	int		readed;
 
 	readed = 1;
 	buff = malloc(sizeof(char) * BUFFER_SIZE + 1);
-	while (readed != 0 && ft_strchr(buff, '\n') == 0)
+	while (readed != 0 && ft_strchr(buff, '\n') == NULL)
 	{
 		readed = read(fd, buff, BUFFER_SIZE);
 		if (readed == -1)
@@ -54,7 +54,7 @@ char	*get_next_line(int fd)
 {
 	static char	*line;
 
-	if (ft_strchr(line, '\n') == 0)
+	if (ft_strchr(line, '\n') == NULL)
 	{
 		read_line(fd, line);
 	}
@@ -65,8 +65,8 @@ int main ()
 {
 	int fd;
 	fd = open("texte.txt", O_RDONLY);
+
 	if (!fd)
 		return 0;
-	char tmp[5] = "test";
-	printf("(%s)" ,get_next_line(fd));
+	printf("(%s)" ,read_line(fd));
 }

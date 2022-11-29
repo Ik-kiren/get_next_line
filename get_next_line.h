@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:52:47 by cdupuis           #+#    #+#             */
-/*   Updated: 2022/11/29 15:50:39 by cdupuis          ###   ########.fr       */
+/*   Updated: 2022/11/29 17:43:39 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,5 @@
 #include <stdio.h>
 
 char	*ft_strjoin(char const *s1, char const *s2);
-int     ft_strchr(const char *s, int c);
+char    *ft_strchr(const char *s, int c);
 size_t	ft_strlen(char const *str);

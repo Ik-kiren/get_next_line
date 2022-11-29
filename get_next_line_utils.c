@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:52:53 by cdupuis           #+#    #+#             */
-/*   Updated: 2022/11/29 15:50:59 by cdupuis          ###   ########.fr       */
+/*   Updated: 2022/11/29 17:43:26 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,22 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (tab);
 }
 
-int	ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
 	int	i;
 
 	i = 0;
 	while (s[i] != '\0')
 	{
-		i++;
 		if (s[i] == (unsigned char)c)
 		{
-			return (i);
+			return ((char *)&s[i]);
 		}
+		i++;
 	}
-	return (0);
+	if ((unsigned char)c == '\0')
+	{
+		return ((char *)&s[i]);
+	}
+	return (NULL);
 }
