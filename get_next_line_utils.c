@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:52:53 by cdupuis           #+#    #+#             */
-/*   Updated: 2022/11/29 17:43:26 by cdupuis          ###   ########.fr       */
+/*   Updated: 2022/12/01 13:41:06 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t	ft_strlen(char const *str)
 	return (i);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	int		i;
 	int		j;
@@ -57,6 +57,10 @@ char	*ft_strchr(const char *s, int c)
 	int	i;
 
 	i = 0;
+	if (!s)
+	{
+		return (NULL);
+	}
 	while (s[i] != '\0')
 	{
 		if (s[i] == (unsigned char)c)
@@ -70,4 +74,22 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)&s[i]);
 	}
 	return (NULL);
+}
+
+char	*ft_strdup(const char *source)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	str = malloc(sizeof(char) * ft_strlen(source) + 1);
+	if (!str)
+		return (NULL);
+	while (source[i] != '\0')
+	{
+		str[i] = source[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }
