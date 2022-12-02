@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 12:14:53 by cdupuis           #+#    #+#             */
-/*   Updated: 2022/12/02 15:14:22 by cdupuis          ###   ########.fr       */
+/*   Updated: 2022/12/02 16:09:34 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	*get_a_line(char *line)
 	i = 0;
 	size = 0;
 	if (!line)
+		return (NULL);
+	if (*line == '\0')
 		return (NULL);
 	while (line[i] != '\n' && line[i] != '\0')
 	{
@@ -42,8 +44,13 @@ char	*get_a_line(char *line)
 char	*erase_line(char *line)
 {
 	char	*tmp;
+	int		len;
 
-	tmp = malloc(sizeof(char) * ft_strlen(ft_strchr(line, '\n')));
+	if (ft_strchr(line, '\n') != NULL)
+		len = ft_strlen(ft_strchr(line, '\n'));
+	else
+		len = ft_strlen(line);
+	tmp = malloc(sizeof(char) * len);
 	if (!tmp)
 		return (NULL);
 	if (ft_strchr(line, '\n') != NULL)
@@ -93,6 +100,7 @@ char	*get_next_line(int fd)
 		free(buff);
 		return NULL;
 	}
+	free(buff);
 	return (tmp);
 }
 
