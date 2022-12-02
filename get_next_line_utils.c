@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:52:53 by cdupuis           #+#    #+#             */
-/*   Updated: 2022/12/01 13:41:06 by cdupuis          ###   ########.fr       */
+/*   Updated: 2022/12/02 15:13:10 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(char const *str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i] != '\0')
 	{
 		i++;
@@ -33,10 +35,18 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	i = 0;
 	j = 0;
+	if (!s1)
+	{
+		s1 = malloc(sizeof(char) * 1);
+		s1[0] = '\0';
+	}
 	len = ft_strlen(s1) + ft_strlen(s2) + 1;
 	tab = malloc(sizeof(char) * len);
 	if (!tab)
+	{
+		free(tab);
 		return (NULL);
+	}
 	while (s1[i] != '\0')
 	{
 		tab[i] = s1[i];
@@ -49,6 +59,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		j++;
 	}
 	tab[i] = '\0';
+	free(s1);
 	return (tab);
 }
 
@@ -58,9 +69,7 @@ char	*ft_strchr(const char *s, int c)
 
 	i = 0;
 	if (!s)
-	{
-		return (NULL);
-	}
+		return (0);
 	while (s[i] != '\0')
 	{
 		if (s[i] == (unsigned char)c)
@@ -73,7 +82,7 @@ char	*ft_strchr(const char *s, int c)
 	{
 		return ((char *)&s[i]);
 	}
-	return (NULL);
+	return (0);
 }
 
 char	*ft_strdup(const char *source)
@@ -82,6 +91,8 @@ char	*ft_strdup(const char *source)
 	char	*str;
 
 	i = 0;
+	if (!source)
+		return (NULL);
 	str = malloc(sizeof(char) * ft_strlen(source) + 1);
 	if (!str)
 		return (NULL);
