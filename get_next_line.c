@@ -29,10 +29,14 @@ char	*get_a_line(char *line)
 	{
 		i++;
 	}
+	if (line[i] == '\n')
+		i = i + 1;
 	size = i;
 	i = 0;
-	tmp = malloc(sizeof(char) * size + 2);
-	while (i <= size)
+	tmp = malloc(sizeof(char) * size + 1);
+	if (!tmp)
+		return NULL;
+	while (i < size)
 	{
 		tmp[i] = line[i];
 		i++;
@@ -44,22 +48,15 @@ char	*get_a_line(char *line)
 char	*erase_line(char *line)
 {
 	char	*tmp;
-	int		len;
-
-	if (ft_strchr(line, '\n') != NULL)
-		len = ft_strlen(ft_strchr(line, '\n'));
-	else
-		len = ft_strlen(line);
-	tmp = malloc(sizeof(char) * len);
-	if (!tmp)
-		return (NULL);
+	
+	if (!line)
+		return NULL;
 	if (ft_strchr(line, '\n') != NULL)
 	{
 		tmp = ft_strdup(ft_strchr(line, '\n') + 1);
 	}
 	else
 	{
-		free(tmp);
 		return NULL;
 	}
 	free(line);
@@ -93,7 +90,7 @@ char	*get_next_line(int fd)
 	}
 	tmp = get_a_line(line);
 	line = erase_line(line);
-	if (!tmp)
+	if (!tmp || *tmp == '\0')
 	{
 		free(tmp);
 		free(line);
@@ -107,7 +104,7 @@ char	*get_next_line(int fd)
 int main ()
 {
 	int fd;
-	fd = open("texte.txt", O_RDONLY);
+	fd = open("big_line_with_nl", O_RDONLY);
 
 	if (!fd)
 		return 0;
@@ -115,7 +112,6 @@ int main ()
 	printf("II(%s)" ,get_next_line(fd));
 	printf("III(%s)" ,get_next_line(fd));
 	printf("IV(%s)" ,get_next_line(fd));
-	printf("V(%s)" ,get_next_line(fd));
-	printf("VI(%s)" ,get_next_line(fd));
-	printf("VII(%s)" ,get_next_line(fd));
+
+	free(get_next_line(fd));
 }
