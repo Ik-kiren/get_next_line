@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 12:14:53 by cdupuis           #+#    #+#             */
-/*   Updated: 2022/12/02 16:09:34 by cdupuis          ###   ########.fr       */
+/*   Updated: 2022/12/06 16:13:18 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ char	*erase_line(char *line)
 	}
 	else
 	{
+		free(line);
 		return NULL;
 	}
 	free(line);
@@ -72,13 +73,17 @@ char	*get_next_line(int fd)
 
 	buff = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!buff)
+	{
+		free(buff);
 		return NULL;
+	}
 	reading = 1;
 	while (reading != 0 && ft_strchr(line, '\n') == 0)
 	{
 		reading = read(fd, buff, BUFFER_SIZE);
 		if (reading == -1)
 		{
+			line = NULL;
 			free(buff);
 			return (NULL);
 		}
@@ -99,19 +104,4 @@ char	*get_next_line(int fd)
 	}
 	free(buff);
 	return (tmp);
-}
-
-int main ()
-{
-	int fd;
-	fd = open("big_line_with_nl", O_RDONLY);
-
-	if (!fd)
-		return 0;
-	printf("I(%s)" ,get_next_line(fd));
-	printf("II(%s)" ,get_next_line(fd));
-	printf("III(%s)" ,get_next_line(fd));
-	printf("IV(%s)" ,get_next_line(fd));
-
-	free(get_next_line(fd));
 }

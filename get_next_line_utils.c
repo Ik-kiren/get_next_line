@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:52:53 by cdupuis           #+#    #+#             */
-/*   Updated: 2022/12/02 15:57:28 by cdupuis          ###   ########.fr       */
+/*   Updated: 2022/12/06 15:55:56 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	*ft_strchr(const char *s, int c)
 	return (0);
 }
 
-char	*ft_strdup(const char *source)
+char	*ft_strdup(char *source)
 {
 	int		i;
 	char	*str;
@@ -93,7 +93,7 @@ char	*ft_strdup(const char *source)
 	i = 0;
 	if (!source)
 		return (NULL);
-	str = malloc(sizeof(char) * ft_strlen(source) + 1);
+	str = (char *)malloc(sizeof(char) * ft_strlen(source) + 1);
 	if (!str)
 		return (NULL);
 	while (source[i] != '\0')
