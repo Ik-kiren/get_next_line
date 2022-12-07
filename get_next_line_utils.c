@@ -43,10 +43,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	len = ft_strlen(s1) + ft_strlen(s2) + 1;
 	tab = malloc(sizeof(char) * len);
 	if (!tab)
-	{
-		free(tab);
 		return (NULL);
-	}
 	while (s1[i] != '\0')
 	{
 		tab[i] = s1[i];
